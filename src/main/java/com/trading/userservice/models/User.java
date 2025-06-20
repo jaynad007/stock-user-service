@@ -1,33 +1,50 @@
 package com.trading.userservice.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.relational.core.mapping.Column;
 
 public class User {
 
+
     private String firstName;
+
     private String lastName;
+
     private Integer age;
-    private String address;
+
     private String mobile;
+
     private String email;
+
     private String occupation;
-    @JsonIgnore
+
     private String password;
+
     private String userName;
+
     private String riskProfile;
 
+    private String addressLine1;
 
-    public User(String riskProfile, String userName, String occupation, String email, String mobile, String address, Integer age, String lastName, String firstName) {
-        this.riskProfile = riskProfile;
-        this.userName = userName;
-        this.occupation = occupation;
-        this.email = email;
-        this.mobile = mobile;
-        this.address = address;
-        this.age = age;
-        this.lastName = lastName;
-        this.firstName = firstName;
+    private String addressLine2;
+
+    private String AddressLine3;
+
+    private String state;
+
+    private String city;
+
+    private String county;
+
+    private String country;
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getFirstName() {
@@ -52,14 +69,6 @@ public class User {
 
     public void setAge(Integer age) {
         this.age = age;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getMobile() {
@@ -110,5 +119,72 @@ public class User {
         this.riskProfile = riskProfile;
     }
 
+    public String getAddressLine1() {
+        return addressLine1;
+    }
 
+    public void setAddressLine1(String addressLine1) {
+        this.addressLine1 = addressLine1;
+    }
+
+    public String getAddressLine2() {
+        return addressLine2;
+    }
+
+    public void setAddressLine2(String addressLine2) {
+        this.addressLine2 = addressLine2;
+    }
+
+    public String getAddressLine3() {
+        return AddressLine3;
+    }
+
+    public void setAddressLine3(String addressLine3) {
+        AddressLine3 = addressLine3;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", age=" + age +
+                ", mobile='" + mobile + '\'' +
+                ", email='" + email + '\'' +
+                ", occupation='" + occupation + '\'' +
+                ", userName='" + userName + '\'' +
+                ", riskProfile='" + riskProfile + '\'' +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", AddressLine3='" + AddressLine3 + '\'' +
+                ", state='" + state + '\'' +
+                ", city='" + city + '\'' +
+                ", county='" + county + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
 }

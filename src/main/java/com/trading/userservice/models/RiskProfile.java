@@ -4,7 +4,7 @@ public enum RiskProfile {
 
 
     LOW,
-    MEDIUM,
+    MODERATE,
     HIGH,
 
 

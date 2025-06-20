@@ -3,15 +3,17 @@ package com.trading.userservice.util;
 import com.trading.userservice.models.ErrorObject;
 import com.trading.userservice.models.RiskProfile;
 import com.trading.userservice.models.User;
+import com.trading.userservice.models.repo.UserDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.MediaType;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.trading.userservice.Constants.ErrorConstants.*;
+import static com.trading.userservice.constants.ErrorConstants.*;
 
 
 public class ValidationUtils {
@@ -22,7 +24,7 @@ public class ValidationUtils {
         List<String> errorList = new ArrayList<>();
         verifyBlankOrEmptyField(userObj.getFirstName(), "First Name", errorList);
         verifyBlankOrEmptyField(userObj.getLastName(), "Last Name", errorList);
-        verifyBlankOrEmptyField(userObj.getAddress(), "Address", errorList);
+        //verifyBlankOrEmptyField(userObj.getAddress(), "Address", errorList);
         verifyBlankOrEmptyField(userObj.getMobile(), "Mobile Number", errorList);
         verifyBlankOrEmptyField(userObj.getEmail(), "Email", errorList);
         verifyBlankOrEmptyField(userObj.getPassword(), "Password", errorList);
@@ -31,8 +33,10 @@ public class ValidationUtils {
             errorList.add(AGE_ERROR);
         }
         // We can add regex later.
-        error.setErrorMessage(errorList);
-        error.setErrorCode(VALIDATION_ERROR_CODE);
+        if(!CollectionUtils.isEmpty(errorList)){
+            error.setErrorMessage(errorList);
+            error.setErrorCode(VALIDATION_ERROR_CODE);
+        }
 
         return error;
     }
@@ -57,6 +61,13 @@ public class ValidationUtils {
     public static Mono<ServerResponse> generateErrorServerResponse(ErrorObject err){
         return ServerResponse
                 .badRequest()
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(err);
+    }
+
+    public static Mono<ServerResponse> generateInternalErrorServerResponse(ErrorObject err){
+        return ServerResponse
+                .status(500)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(err);
     }
